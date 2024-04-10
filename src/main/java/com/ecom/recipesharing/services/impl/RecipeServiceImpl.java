@@ -70,5 +70,5 @@ recipeRepository.deleteById(id);
                     .remove(user.getId()) ;
     }else{
         recipe.getLikes().add(user.getId());
-    }return null;
+    }return recipeRepository.save(recipe);
 }}

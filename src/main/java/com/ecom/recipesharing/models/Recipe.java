@@ -21,7 +21,7 @@ public class Recipe {
     private  User user;
     private  String image;
     private  String description;
-    private boolean bagitarian;
+    private boolean vegatarian;
     private LocalDateTime createdAt;
     private List<Long> likes=new ArrayList<>();
 }

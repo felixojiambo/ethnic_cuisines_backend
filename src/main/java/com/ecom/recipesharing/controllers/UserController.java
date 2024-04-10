@@ -26,10 +26,9 @@ public class UserController {
             userRepository.deleteById(userId);
             return "User deleted successfully";
         }
-    @GetMapping("/get}")
+    @GetMapping("/get")
     public List<User> getAllUses () throws Exception {
-      List<User> users=userRepository.findAll();
-        return users;
+        return userRepository.findAll();
     }
     }
 //    public User findByEmail(String email) throws Exception {
