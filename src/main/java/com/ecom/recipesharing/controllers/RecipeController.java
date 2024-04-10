@@ -3,6 +3,7 @@ import com.ecom.recipesharing.models.Recipe;
 import com.ecom.recipesharing.models.User;
 import com.ecom.recipesharing.services.RecipeService;
 import com.ecom.recipesharing.services.UserService;
+import org.apache.tomcat.Jar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -13,9 +14,9 @@ public class RecipeController {
     private RecipeService recipeService;
     @Autowired
     private UserService userService;
-    @PostMapping("/user/{userId}")
-    public Recipe createRecipe(@RequestBody Recipe recipe, @PathVariable Long userId) throws Exception {
-       User user=userService.findUserById(userId);
+    @PostMapping("")
+    public Recipe createRecipe(@RequestBody Recipe recipe, @RequestHeader("Authorization") String jwt) throws Exception {
+       User user=userService.findUserByJwt(jwt);
         return recipeService.createRecipe(recipe,null);
     }
     @GetMapping("/get-all")
@@ -31,9 +32,9 @@ public class RecipeController {
         recipeService.deleteRecipe(recipeId);
         return "Recipe delete successfully";
     }
-    @PutMapping("/like/{id}/user/{userId}")
-    public Recipe likeRecipe(@PathVariable Long userId, @PathVariable Long id) throws Exception {
-        User user=userService.findUserById(userId);
+    @PutMapping("/{id}/like")
+    public Recipe likeRecipe( @RequestHeader("Authorization")String jwt,@PathVariable Long id) throws Exception {
+        User user=userService.findUserByJwt(jwt);
         return recipeService.likeRecipe(id,user);
     }
 }
