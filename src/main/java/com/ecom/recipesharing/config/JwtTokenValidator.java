@@ -1,5 +1,6 @@
 package com.ecom.recipesharing.config;
-
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -9,10 +10,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
-
+import io.jsonwebtoken.Jwts;
 import javax.crypto.SecretKey;
 import java.io.IOException;
-
 public class JwtTokenValidator extends OncePerRequestFilter {
 
     @Override
@@ -21,8 +21,8 @@ public class JwtTokenValidator extends OncePerRequestFilter {
         if(jwt!=null){
             jwt=jwt.substring(7);
             try {
-                SecretKey key=Keys.hmacShaKeyFor(JwtConstant.JWT_SECRET.getBytes());
-                Claims claims=Jwts.parseBuilder().setSigningKey(key).build().parseClaimsJws(jwt).getBody();
+                SecretKey key= Keys.hmacShaKeyFor(JwtConstant.JWT_SECRET.getBytes());
+                Claims claims=Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwt).getBody();
                 String email=String.valueOf(claims.get("email"));
                 Authentication authentication=new UsernamePasswordAuthenticationToken(email,null,null);
                 SecurityContextHolder.getContext().setAuthentication(authentication);

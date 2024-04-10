@@ -1,15 +1,16 @@
 package com.ecom.recipesharing.config;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import io.jsonwebtoken.Jwts;
-
 import javax.crypto.SecretKey;
 import java.util.Date;
 
 @Service
 public class JwtProvider {
-    private SecretKey key=Keys.hmacShaKeyFor(JwtConstant.JWT_SECRET.getBytes());
+    private SecretKey key= Keys.hmacShaKeyFor(JwtConstant.JWT_SECRET.getBytes());
     public  String generateToken(Authentication auth){
         String  jwt=Jwts.builder().setIssuedAt(new Date())
                 .setExpiration(new Date(new Date().getTime()+86400000))
@@ -19,7 +20,7 @@ public class JwtProvider {
     }
     public  String getEmailFromJwtToken(String jwt){
         jwt.substring(7);
-        Claims claims=Jwts.parseBuilder().setSigningKey(key).build().parseClaimsJws(jwt).getBody();
+        Claims claims=Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwt).getBody();
       String email=String.valueOf(claims.get("email"));return email;
     }
 }
