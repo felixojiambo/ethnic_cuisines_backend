@@ -1,5 +1,5 @@
 Description
-Welcome to the Ethnic Cuuisines Recipe Sharing App
+Welcome to the Ethnic Cuisines Recipe Sharing App
 
 Unlock the power of culinary creativity with our full-stack solution crafted using cutting-edge technologies.
 
