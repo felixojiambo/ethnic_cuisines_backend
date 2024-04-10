@@ -42,7 +42,7 @@ Authorize-> Authorize.requestMatchers("/api/**").authenticated()
                 cfg.setAllowedHeaders(Collections.singletonList("*"));
                 cfg.setExposedHeaders(Collections.singletonList("*"));
                 cfg.setMaxAge(3600L);
-                return null;
+                return cfg;
             }
         };
     }
