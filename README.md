@@ -5,7 +5,7 @@ Unlock the power of culinary creativity with our full-stack solution crafted usi
 
 About the App
 
-Our Ethnic Cuisine Recipe Sharing App, developed using Angular 17 and Spring Boot, is a comprehensive platform for food enthusiasts and culinary maestros alike. Seamlessly combining the robustness of Angular Material and the flexibility of Tailwind CSS, this app offers a visually stunning and intuitive user experience.
+Our Ethnic Cuisines Recipe Sharing App, developed using Angular 17 and Spring Boot, is a comprehensive platform for food enthusiasts and culinary maestros alike. Seamlessly combining the robustness of Angular Material and the flexibility of Tailwind CSS, this app offers a visually stunning and intuitive user experience.
 
 Key Features
 
