@@ -7,9 +7,11 @@ import com.ecom.recipesharing.models.User;
 import com.ecom.recipesharing.repositories.UserRepository;
 import com.ecom.recipesharing.services.impl.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -48,6 +50,7 @@ public class AuthenticationController {
         res.setMessage("Successfully registered");
         return  res;
     }
+    @PostMapping("/login")
     public  AuthenticationResponse signinHandler(@RequestBody LoginRequest loginRequest){
         String username=loginRequest.getEmail();
         String password=loginRequest.getPassword();
@@ -61,6 +64,13 @@ public class AuthenticationController {
     }
 
     private Authentication authenticate(String username, String password) {
-
+        UserDetails userDetails= customUserDetails.loadUserByUsername(username);
+        if(userDetails==null){
+            throw  new BadCredentialsException("user not found");
+        }
+        if(!passwordEncoder.matches(password,userDetails.getPassword())){
+            throw new BadCredentialsException("invalid password");
+        }
+return  new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
     }
 }
