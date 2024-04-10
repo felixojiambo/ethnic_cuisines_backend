@@ -7,7 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class RecipeSharingApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(RecipeSharingApplication.class, args);
+		System.out.println("Server running on port 9090");
 	}
 
 }
