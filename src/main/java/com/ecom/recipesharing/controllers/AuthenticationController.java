@@ -31,8 +31,10 @@ public class AuthenticationController {
             throw new Exception("User with email exists,try new email ");
         }User createdUser=new User();
         createdUser.setEmail(email);
-        createdUser.setPassword(password);
+        createdUser.setPassword(passwordEncoder.encode(password));
         createdUser.setFullName(fullName);
+        User savedUser=userRepository.save(createdUser);
+
         return  null;
     }
 }
